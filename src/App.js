@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Sidebar from "./Components/Sidebar";
+import Today from "./Pages/Today";
+import Calendar from "./Pages/Calendar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {/* 라우터로 엔드포인트 설정 및 각 루트로 링크하기 */}
+      <div className="App">
+        <main>
+          <Sidebar />
+          <section className="features">
+            <Routes>
+              <Route path="/" element={<Today />}></Route>
+              <Route path="/calendar" element={<Calendar />}></Route>
+            </Routes>
+          </section>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
