@@ -116,7 +116,7 @@ const Today = () => {
       <Header name={"오늘"} />
       <DivContainer>
         <DateIndicator>
-          <i class="fa-solid fa-location-pin"></i>
+          <i className="fa-solid fa-location-pin"></i>
           {parsedDate}
         </DateIndicator>
         <InputContainer>
