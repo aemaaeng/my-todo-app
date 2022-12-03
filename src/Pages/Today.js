@@ -118,7 +118,6 @@ const Today = () => {
           <i class="fa-solid fa-location-pin"></i>
           {parsedDate}
         </DateIndicator>
-        {/* 여기 안에 인풋 컨테이너와 태스크 컨테이너 들어가야 함 */}
         <InputContainer>
           <input
             type="text"
@@ -130,7 +129,7 @@ const Today = () => {
         </InputContainer>
         <TaskContainer>
           {tasks.map((el) => (
-            <Task key={el.id} task={el} setTask={setTask} />
+            <Task key={el.id} task={el} tasks={tasks} setTask={setTask} />
           ))}
         </TaskContainer>
       </DivContainer>

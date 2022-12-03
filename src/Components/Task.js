@@ -11,7 +11,7 @@ const Taskli = styled.li`
   /* width: 345px; */
   height: 22px;
   /* background-color: gray; */
-  margin: 10px 0px;
+  margin: 15px 0px;
 `;
 
 // 체크박스
@@ -51,12 +51,17 @@ const Delete = styled.div`
   margin-left: 10px;
 `;
 
-const Task = ({ task, setTask }) => {
+const Task = ({ task, tasks, setTask }) => {
   const [isChecked, SetIsChecked] = useState(false);
 
   // check 상태 핸들러
-  // 삭제 버튼 클릭 핸들러 (setTask로 어떻게해보면 될 것 같음)
-  // id 받아와서 같은 id 제거
+
+  // 삭제 버튼 핸들러
+  const deleteButtonHandler = () => {
+    console.log("clicked!");
+    let filtered = tasks.filter((el) => el.id !== task.id);
+    setTask(filtered);
+  };
 
   // task가 하나도 없을 때 보여질 컴포넌트도 만들어서 불러오기
 
@@ -65,7 +70,7 @@ const Task = ({ task, setTask }) => {
       <Checkbox type="checkbox"></Checkbox>
       {/* isChecked의 상태에 따라 클래스 추가 */}
       <TaskContent>{task.content}</TaskContent>
-      <Delete>
+      <Delete onClick={deleteButtonHandler}>
         <i class="fa-solid fa-x"></i>
       </Delete>
     </Taskli>
