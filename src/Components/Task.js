@@ -63,8 +63,6 @@ const Task = ({ task, tasks, setTask }) => {
     setTask(filtered);
   };
 
-  // task가 하나도 없을 때 보여질 컴포넌트도 만들어서 불러오기
-
   return (
     <Taskli>
       <Checkbox type="checkbox"></Checkbox>

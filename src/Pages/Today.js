@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import Task from "../Components/Task";
+import EmptyTask from "../Components/EmptyTask";
 
 const DivContainer = styled.div`
   background-color: #ffffff;
@@ -128,9 +129,13 @@ const Today = () => {
           <SubmitButton onClick={addButtonHandler}>추가</SubmitButton>
         </InputContainer>
         <TaskContainer>
-          {tasks.map((el) => (
-            <Task key={el.id} task={el} tasks={tasks} setTask={setTask} />
-          ))}
+          {tasks.length === 0 ? (
+            <EmptyTask />
+          ) : (
+            tasks.map((el) => (
+              <Task key={el.id} task={el} tasks={tasks} setTask={setTask} />
+            ))
+          )}
         </TaskContainer>
       </DivContainer>
     </>
