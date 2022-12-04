@@ -68,7 +68,7 @@ const Today = () => {
   // ** -> 이거는 한글이 조합문자라서 생긴 문제였다. 근데 나는 약간 다르게 작동함..
 
   // 구현해보고 싶은 기능
-  // * 추가하고 나서는 input칸에 작성되어있던 텍스트 지우기
+  // * 추가하고 나서는 input칸에 작성되어있던 텍스트 지우기 ✓
   // * input이 비었을 때에는 추가되지 않도록
   // * 일정 전체 삭제 기능
 
@@ -86,6 +86,7 @@ const Today = () => {
       content: taskContent,
     };
     setTask([task, ...tasks]);
+    setTaskContent("");
   };
 
   // 엔터 키 핸들러
@@ -122,6 +123,7 @@ const Today = () => {
         <InputContainer>
           <input
             type="text"
+            value={taskContent}
             placeholder="할 일 입력"
             onChange={inputHandler}
             onKeyDown={enterKeyHandler}
