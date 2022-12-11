@@ -59,21 +59,21 @@ const Task = ({ task, tasks, setTask }) => {
   // 삭제 버튼 핸들러
   const deleteButtonHandler = () => {
     // console.log("clicked!");
-    // 서버에서 지우기
+    // 서버에서 지우고 변경사항이 적용된 데이터로 다시 불러오기
     fetch(`http://localhost:3001/todos/${task.id}`, {
       method: "DELETE",
-    }).then(() => {
-      fetch("http://localhost:3001/todos")
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          // setIsLoading(false);
-          setTask(data);
-          console.log(tasks);
-        })
-        .catch((err) => console.error("Error", err));
-    });
+    })
+      .then(() => {
+        fetch("http://localhost:3001/todos")
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            // setIsLoading(false);
+            setTask(data);
+          });
+      })
+      .catch((err) => console.error("Error", err));
     // let filtered = tasks.filter((el) => el.id !== task.id);
     // setTask(filtered);
   };
