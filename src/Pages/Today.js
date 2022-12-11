@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import Task from "../Components/Task";
@@ -62,6 +62,7 @@ const TaskContainer = styled.ul`
 const Today = () => {
   const [tasks, setTask] = useState([]);
   const [taskContent, setTaskContent] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
 
   // * 문제점! 라우터로 왔다갔다하면 써뒀던 내용이 날아가버린다. 방법 찾아보기
   // * 엔터 키 이벤트를 추가했는데 값이 두 번씩 추가된다.. 왜 이러지??
@@ -71,6 +72,25 @@ const Today = () => {
   // * 추가하고 나서는 input칸에 작성되어있던 텍스트 지우기 ✓
   // * input이 비었을 때에는 추가되지 않도록
   // * 일정 전체 삭제 기능
+  // * 서버? ✔️ json-server 이용
+
+  // 초기 데이터 불러오기?
+  const fetchData = () => {
+    fetch("http://localhost:3001/todos")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // setIsLoading(false);
+        setTask(data);
+        console.log(tasks);
+      })
+      .catch((err) => console.error("Error", err));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // 인풋 핸들러
   const inputHandler = (event) => {
@@ -80,12 +100,24 @@ const Today = () => {
 
   // 추가 버튼 핸들러
   const addButtonHandler = () => {
+    // id는 json-server에서 자동으로 넣어준다.
     const task = {
-      id: tasks.length,
       date: new Date(),
       content: taskContent,
     };
-    setTask([task, ...tasks]);
+
+    // 서버에 반영하기 -> custom hook 사용 고려해보자
+    fetch("http://localhost:3001/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    })
+      .then(() => fetchData())
+      .catch((error) => console.error("Error", error));
+
+    // 이렇게 상태로 업데이트하는거 말고 진짜 서버에서 불러오는 건 어떻게 하지...?
+    // custom hook으로 해야 하나?
+    // setTask([task, ...tasks]);
     setTaskContent("");
   };
 

@@ -58,9 +58,24 @@ const Task = ({ task, tasks, setTask }) => {
 
   // 삭제 버튼 핸들러
   const deleteButtonHandler = () => {
-    console.log("clicked!");
-    let filtered = tasks.filter((el) => el.id !== task.id);
-    setTask(filtered);
+    // console.log("clicked!");
+    // 서버에서 지우기
+    fetch(`http://localhost:3001/todos/${task.id}`, {
+      method: "DELETE",
+    }).then(() => {
+      fetch("http://localhost:3001/todos")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          // setIsLoading(false);
+          setTask(data);
+          console.log(tasks);
+        })
+        .catch((err) => console.error("Error", err));
+    });
+    // let filtered = tasks.filter((el) => el.id !== task.id);
+    // setTask(filtered);
   };
 
   return (
@@ -69,7 +84,7 @@ const Task = ({ task, tasks, setTask }) => {
       {/* isChecked의 상태에 따라 클래스 추가 */}
       <TaskContent>{task.content}</TaskContent>
       <Delete onClick={deleteButtonHandler}>
-        <i class="fa-solid fa-x"></i>
+        <i className="fa-solid fa-x"></i>
       </Delete>
     </Taskli>
   );
