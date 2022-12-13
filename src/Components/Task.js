@@ -32,6 +32,7 @@ const TaskContent = styled.div`
   width: 290px;
   &.checked {
     color: gray;
+    text-decoration-line: line-through;
   }
 `;
 
@@ -123,6 +124,19 @@ const Task = ({ task, setTask }) => {
     }
   };
 
+  // check 상태 핸들러
+  const handleCheck = () => {
+    fetch(`http://localhost:3001/todos/${task.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        isChecked: !task.isChecked,
+      }),
+    })
+      .then(() => fetchData())
+      .catch((error) => console.error("Error", error));
+  };
+
   // 삭제 버튼 핸들러
   const deleteButtonHandler = () => {
     // console.log("clicked!");
@@ -142,9 +156,16 @@ const Task = ({ task, setTask }) => {
       .catch((err) => console.error("Error", err));
   };
 
+  // 클래스네임을 결정하는 변수
+  const isDone = task.isChecked ? "checked" : "";
+
   return (
     <Taskli>
-      <Checkbox type="checkbox"></Checkbox>
+      <Checkbox
+        type="checkbox"
+        onClick={handleCheck}
+        checked={task.isChecked}
+      ></Checkbox>
       {/* isChecked의 상태에 따라 클래스 추가 */}
       {isEditMode ? (
         <EditInput
@@ -154,7 +175,9 @@ const Task = ({ task, setTask }) => {
           onBlur={handleSendEdit}
         />
       ) : (
-        <TaskContent onDoubleClick={handleEditMode}>{task.content}</TaskContent>
+        <TaskContent className={isDone} onDoubleClick={handleEditMode}>
+          {task.content}
+        </TaskContent>
       )}
       <Delete onClick={deleteButtonHandler}>
         <i className="fa-solid fa-x"></i>
