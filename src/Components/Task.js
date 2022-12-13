@@ -6,11 +6,8 @@ import styled from "styled-components";
 const Taskli = styled.li`
   list-style: none;
   display: flex;
-  /* justify-content: space-between */
   align-items: center;
-  /* width: 345px; */
   height: 22px;
-  /* background-color: gray; */
   margin: 15px 0px;
 `;
 
@@ -33,8 +30,23 @@ const Checkbox = styled.input`
 const TaskContent = styled.div`
   font-weight: bold;
   width: 290px;
-  &.completed {
+  &.checked {
     color: gray;
+  }
+`;
+
+// 수정 시 보이는 input 칸
+const EditInput = styled.input`
+  width: 290px;
+  color: gray;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 3px 0px 3px 3px;
+  border: solid gray;
+  border-width: 0px 0px 1px 0px;
+  outline: none;
+  &:focus {
+    border-bottom: 2px solid #8fbaf3;
   }
 `;
 
@@ -51,10 +63,65 @@ const Delete = styled.div`
   margin-left: 10px;
 `;
 
-const Task = ({ task, tasks, setTask }) => {
-  const [isChecked, SetIsChecked] = useState(false);
+const Task = ({ task, setTask }) => {
+  // 수정가능모드인지 판별하는 state
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editInput, setEditInput] = useState(task.content);
 
-  // check 상태 핸들러
+  // 데이터 로딩
+  const fetchData = () => {
+    fetch("http://localhost:3001/todos")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setTask(data);
+      })
+      .catch((err) => console.error("Error", err));
+  };
+
+  // 더블클릭 시 상태를 변경하는 함수
+  const handleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
+  // 수정될 input 핸들러
+  const handleEditChange = (event) => {
+    setEditInput(event.target.value);
+  };
+
+  // 서버에도 patch 요청 보내기
+  const handleSendEdit = () => {
+    if (editInput.length === 0) {
+      alert("내용을 입력해주세요!");
+      return;
+    }
+
+    fetch(`http://localhost:3001/todos/${task.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        updatedAt: new Date(),
+        content: editInput,
+      }),
+    })
+      .then(() => fetchData())
+      .catch((error) => console.error("Error", error));
+
+    setEditInput(editInput);
+    setIsEditMode(!isEditMode);
+  };
+
+  // enter 키 핸들러
+  const handleEnterKey = (event) => {
+    if (event.nativeEvent.isComposing === true) {
+      return;
+    }
+
+    if (event.key === "Enter") {
+      handleSendEdit();
+    }
+  };
 
   // 삭제 버튼 핸들러
   const deleteButtonHandler = () => {
@@ -69,20 +136,26 @@ const Task = ({ task, tasks, setTask }) => {
             return res.json();
           })
           .then((data) => {
-            // setIsLoading(false);
             setTask(data);
           });
       })
       .catch((err) => console.error("Error", err));
-    // let filtered = tasks.filter((el) => el.id !== task.id);
-    // setTask(filtered);
   };
 
   return (
     <Taskli>
       <Checkbox type="checkbox"></Checkbox>
       {/* isChecked의 상태에 따라 클래스 추가 */}
-      <TaskContent>{task.content}</TaskContent>
+      {isEditMode ? (
+        <EditInput
+          value={editInput}
+          onChange={handleEditChange}
+          onKeyDown={handleEnterKey}
+          onBlur={handleSendEdit}
+        />
+      ) : (
+        <TaskContent onDoubleClick={handleEditMode}>{task.content}</TaskContent>
+      )}
       <Delete onClick={deleteButtonHandler}>
         <i className="fa-solid fa-x"></i>
       </Delete>

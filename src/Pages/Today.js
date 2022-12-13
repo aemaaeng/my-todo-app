@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useCallback } from "react";
+import { React, useEffect, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import Task from "../Components/Task";
@@ -66,7 +66,8 @@ const Today = () => {
 
   // 구현해보고 싶은 기능
   // * 추가하고 나서는 input칸에 작성되어있던 텍스트 지우기 ✓
-  // * input이 비었을 때에는 추가되지 않도록
+  // * input이 비었을 때에는 추가되지 않도록 ✔️
+  // * clicktoedit
   // * 일정 전체 삭제 기능
   // * 서버? ✔️ json-server 이용
 
@@ -102,7 +103,9 @@ const Today = () => {
 
     const task = {
       date: new Date(),
+      updatedAt: new Date(),
       content: taskContent,
+      isChecked: false,
     };
 
     fetch("http://localhost:3001/todos", {
