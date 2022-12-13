@@ -3,6 +3,7 @@ import "./App.css";
 import Sidebar from "./Components/Sidebar";
 import Today from "./Pages/Today";
 import Calendar from "./Pages/Calendar";
+import Developer from "./Pages/Developer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Today />}></Route>
               <Route path="/calendar" element={<Calendar />}></Route>
+              <Route path="/developer" element={<Developer />}></Route>
             </Routes>
           </section>
         </main>

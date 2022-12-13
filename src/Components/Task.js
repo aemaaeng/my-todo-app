@@ -108,11 +108,12 @@ const Task = ({ task, setTask }) => {
         content: editInput,
       }),
     })
-      .then(() => fetchData())
+      .then(() => {
+        fetchData();
+        setEditInput(editInput);
+        setIsEditMode(!isEditMode);
+      })
       .catch((error) => console.error("Error", error));
-
-    setEditInput(editInput);
-    setIsEditMode(!isEditMode);
   };
 
   // enter 키 핸들러

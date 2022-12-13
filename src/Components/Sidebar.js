@@ -44,7 +44,9 @@ const Sidebar = () => {
         <StyledLink to="/calendar">
           <li>캘린더</li>
         </StyledLink>
-        <li>제작자</li>
+        <StyledLink to="/developer">
+          <li>제작자</li>
+        </StyledLink>
       </ul>
     </Side>
   );
