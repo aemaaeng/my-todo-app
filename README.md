@@ -2,6 +2,10 @@
 
 CRUD가 작동하는 SPA todo app
 
+배포 링크: [https://aemaaeng.github.io/my-todo-app](https://aemaaeng.github.io/my-todo-app)
+
+github pages를 이용해 정적 배포를 한 관계로 현재 배포 링크에서는 서버가 작동하지 않습니다.
+
 ### 시연 화면
 
 #### 1. task 추가
