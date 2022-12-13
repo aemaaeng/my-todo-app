@@ -9,9 +9,8 @@ const StyledEmpty = styled(Empty)`
   color: gray;
 `;
 
-// 할 일이 없을 때 보여질 컴포넌트
-const EmptyTask = () => {
-  return <StyledEmpty description="할 일이 없습니다." />;
+const EmptyTask = (props) => {
+  return <StyledEmpty image={props.image} description={props.desc} />;
 };
 
 export default EmptyTask;

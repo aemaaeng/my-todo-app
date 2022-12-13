@@ -91,6 +91,8 @@ const Task = ({ task, setTask }) => {
     setEditInput(event.target.value);
   };
 
+  // 수정 모드일 때에는 삭제 버튼이 취소 버튼으로 바뀌게 하고 싶음
+
   // 서버에도 patch 요청 보내기
   const handleSendEdit = () => {
     if (editInput.length === 0) {
@@ -166,7 +168,6 @@ const Task = ({ task, setTask }) => {
         onClick={handleCheck}
         checked={task.isChecked}
       ></Checkbox>
-      {/* isChecked의 상태에 따라 클래스 추가 */}
       {isEditMode ? (
         <EditInput
           value={editInput}

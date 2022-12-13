@@ -3,17 +3,12 @@ import Header from "../Components/Header";
 import styled from "styled-components";
 import Task from "../Components/Task";
 import EmptyTask from "../Components/EmptyTask";
+import DateIndicator from "../Components/DateIndicator";
 
 const DivContainer = styled.div`
   background-color: #ffffff;
   height: 680px;
   overflow: hidden;
-`;
-
-const DateIndicator = styled.h2`
-  color: #0245a3;
-  padding: 2rem;
-  font-size: 1.3rem;
 `;
 
 const InputContainer = styled.section`
@@ -30,7 +25,6 @@ const InputContainer = styled.section`
     font-size: 0.9rem;
 
     &:focus {
-      /* 기존 경계선 제거 */
       outline: none;
       border: 1.7px solid #0245a3;
       box-shadow: 0 0 5px #bdf1f6;
@@ -57,6 +51,11 @@ const TaskContainer = styled.ul`
   margin: 2rem;
   height: 490px;
   overflow: auto;
+  &.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Today = () => {
@@ -67,7 +66,7 @@ const Today = () => {
   // 구현해보고 싶은 기능
   // * 추가하고 나서는 input칸에 작성되어있던 텍스트 지우기 ✓
   // * input이 비었을 때에는 추가되지 않도록 ✔️
-  // * clicktoedit
+  // * clicktoedit ✔️
   // * 일정 전체 삭제 기능
   // * 서버? ✔️ json-server 이용
 
@@ -135,21 +134,13 @@ const Today = () => {
     // }
   };
 
-  let today = new Date();
-  let year = today.getFullYear();
-  let month = today.getMonth() + 1;
-  let day = today.getDate();
-
-  let parsedDate = ` ${year}년 ${month}월 ${day}일`;
+  const isEmpty = tasks.length === 0 ? "empty" : "";
 
   return (
     <>
       <Header name={"오늘"} />
       <DivContainer>
-        <DateIndicator>
-          <i className="fa-solid fa-location-pin"></i>
-          {parsedDate}
-        </DateIndicator>
+        <DateIndicator />
         <InputContainer>
           <input
             type="text"
@@ -160,9 +151,9 @@ const Today = () => {
           />
           <SubmitButton onClick={addButtonHandler}>추가</SubmitButton>
         </InputContainer>
-        <TaskContainer>
+        <TaskContainer className={isEmpty}>
           {tasks.length === 0 ? (
-            <EmptyTask />
+            <EmptyTask desc="할 일이 없습니다." />
           ) : (
             tasks.map((el) => (
               <Task key={el.id} task={el} tasks={tasks} setTask={setTask} />
