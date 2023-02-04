@@ -15,6 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "nth-check": ">=2.0.1",
     "react-scripts": "5.0.1"
   },
@@ -22,8 +23,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "http://aemaaeng.github.io/my-todo-app/",
   "eslintConfig": {
     "extends": [
       "react-app",

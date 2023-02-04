@@ -7,7 +7,7 @@ import Developer from "./Pages/Developer";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/my-todo-app">
       {/* 라우터로 엔드포인트 설정 및 각 루트로 링크하기 */}
       <div className="App">
         <main>
