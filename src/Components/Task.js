@@ -166,7 +166,7 @@ const Task = ({ task, setTask }) => {
     <Taskli>
       <Checkbox
         type="checkbox"
-        onClick={handleCheck}
+        onChange={handleCheck}
         checked={task.isChecked}
       ></Checkbox>
       {isEditMode ? (
