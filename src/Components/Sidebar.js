@@ -1,5 +1,4 @@
-import React from "react";
-// 브라우저 라우터 불러와서 각 페이지로 링크해주기
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -24,6 +23,10 @@ const Side = styled.section`
       transition: 0.2s;
     }
   }
+
+  .isFocused {
+    color: #0245a3;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -35,18 +38,30 @@ const StyledLink = styled(Link)`
 `;
 
 const Sidebar = () => {
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const menuArr = [
+    { index: 0, name: "오늘 할 일", path: "/" },
+    { index: 1, name: "캘린더", path: "/calendar" },
+    { index: 2, name: "제작자", path: "/developer" },
+  ];
+
   return (
     <Side>
       <ul>
-        <StyledLink to="/">
-          <li>오늘 할 일</li>
-        </StyledLink>
-        <StyledLink to="/calendar">
-          <li>캘린더</li>
-        </StyledLink>
-        <StyledLink to="/developer">
-          <li>제작자</li>
-        </StyledLink>
+        {menuArr.map((menu) => {
+          const isFocused = currentTab === menu.index ? "isFocused" : "";
+          return (
+            <StyledLink to={menu.path} key={menu.index}>
+              <li
+                className={isFocused}
+                onClick={() => setCurrentTab(menu.index)}
+              >
+                {menu.name}
+              </li>
+            </StyledLink>
+          );
+        })}
       </ul>
     </Side>
   );
