@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
-import { GithubOutlined, LinkOutlined, MailOutlined } from "@ant-design/icons";
+import { GithubOutlined, LinkOutlined } from "@ant-design/icons";
 
 const DivBackground = styled.div`
   background-color: #ffffff;
@@ -53,6 +53,7 @@ const Developer = () => {
                 href="https://haruisshort.tistory.com/"
                 target="_blank"
                 title="blog"
+                rel="noreferrer"
               >
                 <LinkOutlined alt="블로그 아이콘" />
               </a>
@@ -60,6 +61,7 @@ const Developer = () => {
                 href="https://github.com/aemaaeng"
                 target="_blank"
                 title="github"
+                rel="noreferrer"
               >
                 <GithubOutlined alt="github 아이콘" />
               </a>

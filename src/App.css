@@ -9,13 +9,5 @@
 
 main {
   display: flex;
-  flex-direction: row;
-  flex: 1 0;
-  justify-content: center;
-}
-
-.App {
-  display: flex;
-  align-items: center;
-  height: 95vh;
+  height: 100vh;
 }

@@ -5,16 +5,16 @@ import styled from "styled-components";
 const Side = styled.section`
   display: flex;
   flex-direction: column;
-  width: 210px;
+  min-width: 210px;
   padding-left: 13px;
   padding-top: 50px;
-  height: 746px;
   background-color: #8fbaf3;
+  flex: 1;
 
   li {
     list-style: none;
-    margin: 1rem;
-    font-size: 1.05rem;
+    margin: 2rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
 

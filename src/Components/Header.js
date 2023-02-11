@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.header`
   height: 66px;
-  width: 420px;
   line-height: 66px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #aaaaaa;
   background-color: #ffffff;
 `;
 
