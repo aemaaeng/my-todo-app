@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Sidebar from "./Components/Sidebar";
 import Today from "./Pages/Today";
-import History from "./Pages/History";
+import Calendar from "./Pages/Calendar";
 import Developer from "./Pages/Developer";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
           <section className="features">
             <Routes>
               <Route path="/" element={<Today />}></Route>
-              <Route path="/history" element={<History />}></Route>
+              <Route path="/calendar" element={<Calendar />}></Route>
               <Route path="/developer" element={<Developer />}></Route>
             </Routes>
           </section>
