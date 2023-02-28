@@ -1,26 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
-import EmptyTask from "../Components/EmptyTask";
-import settings from "../settings-5-512.png";
+import Calendar from "react-calendar";
 
 const DivBackground = styled.div`
   background-color: #ffffff;
   height: 680px;
+`;
+
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 20px;
 `;
 
-const Calendar = () => {
+const History = () => {
   return (
     <>
       <Header name={"캘린더"}></Header>
       <DivBackground>
-        <EmptyTask image={settings} desc="업데이트 예정" />
+        <Container>
+          <Calendar />
+        </Container>
       </DivBackground>
     </>
   );
 };
 
-export default Calendar;
+export default History;
