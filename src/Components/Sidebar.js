@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import "react-calendar/dist/Calendar.css";
 
 const Side = styled.section`
   display: flex;
@@ -42,7 +43,7 @@ const Sidebar = () => {
 
   const menuArr = [
     { index: 0, name: "오늘 할 일", path: "/" },
-    { index: 1, name: "캘린더", path: "/calendar" },
+    { index: 1, name: "캘린더", path: "/history" },
     { index: 2, name: "제작자", path: "/developer" },
   ];
 
